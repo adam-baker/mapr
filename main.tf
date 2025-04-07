@@ -8,6 +8,7 @@ resource "aws_vpc" "main" {
   tags = {
     Name = "demo-vpc"
     Environment = "Dev"
+    Service = "doot"
   }
 }
 
