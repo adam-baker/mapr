@@ -7,6 +7,7 @@ resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
   tags = {
     Name = "demo-vpc"
+    Environment = "Dev"
   }
 }
 
@@ -15,6 +16,8 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
   tags = {
     Name = "demo-igw"
+    Environment = "Dev"
+    Service = "doot"
   }
 }
 
@@ -25,6 +28,8 @@ resource "aws_subnet" "public" {
   availability_zone = "us-west-1a"
   tags = {
     Name = "demo-subnet"
+    Environment = "Dev"
+    Service = "doot"
   }
 }
 
@@ -39,6 +44,8 @@ resource "aws_route_table" "public" {
 
   tags = {
     Name = "demo-rt"
+    Environment = "Dev"
+    Service = "doot"
   }
 }
 
@@ -46,4 +53,9 @@ resource "aws_route_table" "public" {
 resource "aws_route_table_association" "a" {
   subnet_id      = aws_subnet.public.id
   route_table_id = aws_route_table.public.id
+  tags = {
+    Name = "demo-rt-assoc"
+    Environment = "Dev"
+    Service = "doot"
+  }
 }
