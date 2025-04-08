@@ -5,8 +5,8 @@ module "eks" {
   cluster_name    = var.cluster_name
   cluster_version = var.cluster_version
 
-  vpc_id     = data.aws_vpc.vpc_id
-  subnet_ids = data.aws_subnets.subnet_ids
+  vpc_id     = var.vpc_id
+  subnet_ids = var.subnet_ids
 
   enable_irsa = true
   eks_managed_node_groups = {
