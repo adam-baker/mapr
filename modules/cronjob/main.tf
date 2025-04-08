@@ -10,8 +10,16 @@ resource "kubernetes_cron_job_v1" "job" {
     failed_jobs_history_limit     = var.failed_jobs_history_limit
 
     job_template {
+      metadata {
+        name = "${var.name}-template"
+      }
+
       spec {
         template {
+          metadata {
+            name = "${var.name}-pod"
+          }
+
           spec {
             restart_policy = "OnFailure"
 
@@ -26,4 +34,3 @@ resource "kubernetes_cron_job_v1" "job" {
     }
   }
 }
-
