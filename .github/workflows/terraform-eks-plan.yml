@@ -1,8 +1,12 @@
 name: Terraform Plan - Create EKS
 
 on:
-  workflow_dispatch: {}  # 👈 manually run when needed
-  # Or trigger on push to a specific infra branch
+  pull_request:
+    paths:
+      - 'terraform/environments/dev/**'
+      - 'terraform/modules/**'
+    branches:
+      - '**'  # ✅ Run on all branches
 
 jobs:
   create-eks:
