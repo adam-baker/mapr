@@ -13,6 +13,17 @@ module "cronjob_hello" {
   args       = ["echo", "Hello from dev!"]
 }
 
+module "eks" {
+  source = "../../modules/eks"
+
+  cluster_name         = var.cluster_name
+  vpc_id               = data.aws_vpc.dev.id
+  subnet_ids           = data.aws_subnets.dev.ids
+  node_group_min_size  = 1
+  node_group_max_size  = 3
+  node_group_desired   = 2
+}
+
 data "aws_vpc" "dev" {
   filter {
     name   = "tag:Name"
