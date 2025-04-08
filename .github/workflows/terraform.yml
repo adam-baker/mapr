@@ -48,6 +48,19 @@ jobs:
       - name: Terraform Plan
         run: terraform plan -var-file=terraform.tfvars -out=tfplan.binary
 
+      - name: Install Infracost
+        uses: infracost/actions/setup@v2
+
+      - name: Run Infracost breakdown
+        run: |
+          infracost breakdown \
+            --path=terraform/environments/dev \
+            --terraform-plan-file=tfplan.binary \
+            --format=json \
+            --out-file=infracost.json
+        env:
+          INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
+
       - name: Upload Terraform Plan (PR only)
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v4
